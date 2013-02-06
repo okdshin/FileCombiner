@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 {
 	if(argc < 2){
 		std::cout << boost::format(
-			"This program combines files whick have same keywords in their names with a line interval.\nUsage:\n\t%1% <directory_path> <save_file_path> [<keyword1> <keyword2> ...]")
+			"This program combines files which have same keywords in their names with a line interval.\nUsage:\n\t%1% <directory_path> <save_file_path> [<keyword1> <keyword2> ...]")
 				% path(argv[0]).filename().string()
 		<< std::endl;
 		return 0;
