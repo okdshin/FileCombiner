@@ -1,14 +1,8 @@
 #ifdef FILECOMBINER_UNIT_TEST
 #include "FileCombiner.h"
 #include <iostream>
-#include <string>
-#include <algorithm>
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/algorithm/string.hpp>  
-#include <boost/format.hpp> 
 
-using namespace file_combinator;
+using namespace file_combiner;
 using namespace boost::filesystem;
 int main(int argc, char* argv[])
 {
@@ -35,41 +29,8 @@ int main(int argc, char* argv[])
 		keyword_list.push_back(std::string(argv[i]));
 	}
 
-	//enumurate
-	std::copy(directory_iterator(directory_path), directory_iterator(),
-		std::back_inserter(file_path_list));
+	CombineFile(directory_path, keyword_list, boost::filesystem::path(argv[2]));
 
-	//remove
-	const auto new_end_iter = 
-		std::remove_if(file_path_list.begin(), file_path_list.end(),
-			[&keyword_list](const path& file_path){
-				for(const auto& keyword : keyword_list){
-					if(!boost::contains(file_path.string(), keyword)){
-						return true;
-					}
-				}
-				return false;
-			}
-		);
-	file_path_list.erase(new_end_iter, file_path_list.end());
-	
-	//sort
-	std::sort(file_path_list.begin(), file_path_list.end());
-
-	std::copy(file_path_list.begin(), file_path_list.end(), 
-		std::ostream_iterator<path>(std::cout, ", "));
-	std::cout << std::endl;
-
-	std::ofstream ofs(argv[2]);
-	for(const auto& file_path : file_path_list){
-		boost::filesystem::ifstream ifs(file_path);
-		std::string line;
-		while(ifs && getline(ifs, line)){
-			ofs << line << "\n";	
-		}
-		ofs << "\n";
-	}
-	std::cout << argv[2] << " is generated." << std::endl;
 	return 0;
 }
 
