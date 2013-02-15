@@ -1,7 +1,7 @@
 CXX = g++ -std=gnu++0x
 CXXFLAGS = -Wall -g -D FILECOMBINER_UNIT_TEST
-INCLUDES =
-LIBS = -lboost_filesystem -lboost_system
+INCLUDES = -IC:\MinGW\msys\1.0\home\okada\boost_1_52_0
+LIBS = -LC:\MinGW\msys\1.0\home\okada\boost_1_52_0\stage\mingw\lib -lboost_system-mgw47-mt-sd-1_52 -lboost_filesystem-mgw47-mt-sd-1_52
 OBJS = FileCombiner.o
 PROGRAM = FileCombiner.out
 
