@@ -27,7 +27,7 @@ inline auto CombineFile(
 		std::remove_if(file_path_list.begin(), file_path_list.end(),
 			[&keyword_list](const boost::filesystem::path& file_path){
 				for(const auto& keyword : keyword_list){
-					if(!boost::contains(file_path.string(), keyword)){
+					if(!boost::contains(file_path.filename().string(), keyword)){
 						return true;
 					}
 				}
@@ -48,7 +48,7 @@ inline auto CombineFile(
 		boost::filesystem::ifstream ifs(file_path);
 		std::string line;
 		while(ifs && getline(ifs, line)){
-			ofs << line << "\n";	
+			ofs << file_path.filename().string() << " " << line << "\n";	
 		}
 		ofs << "\n";
 	}
